@@ -14,14 +14,15 @@ module.exports.get = async (event) => {
 
   const promise = dynamoDb.get(params).promise();
   const result = await promise;
-  return sendResponse(200, `${result.Item.message}`);
+  return sendResponse(200, JSON.stringify(result.Item));
 };
 
 const sendResponse = (status, body) => {
   var response = {
     statusCode: status,
     headers: {
-      "Content-Type": "text/html"
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
     },
     body: body
   };

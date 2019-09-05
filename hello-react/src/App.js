@@ -20,10 +20,10 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch('http://jsonplaceholder.typicode.com/users')
+    fetch('https://ijenm6jr5l.execute-api.us-east-1.amazonaws.com/prod/message/1')
       .then(res => res.json())
       .then((data) => {
-        this.setState({ message: data[0].name })
+        this.setState({ message: data.message })
       })
       .catch(console.log)
   }
