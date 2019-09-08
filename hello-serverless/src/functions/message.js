@@ -1,3 +1,5 @@
+'use strict';
+
 const AWS = require('aws-sdk')
 
 module.exports.get = async (event) => {
@@ -11,10 +13,15 @@ module.exports.get = async (event) => {
     }
   }
 
-  const dynamoDb = AWS.DynamoDB.DocumentClient()
+  const dynamoDb = new AWS.DynamoDB.DocumentClient()
   const promise = dynamoDb.get(params).promise();
   const result = await promise;
-  return sendResponse(200, JSON.stringify(result.Item));
+
+  if (result.Item) {
+    return sendResponse(200, JSON.stringify(result.Item));
+  } else {
+    return sendResponse(404, "")
+  }
 };
 
 const sendResponse = (status, body) => {

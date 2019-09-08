@@ -16,12 +16,24 @@ describe('message-get', () => {
   });
 
   AWS.mock('DynamoDB.DocumentClient', 'get', function (params, callback) {
-    callback(null, {Item: {id: 1, message: "This is the message"}});
+    if (params.Key.id == 1) {
+      callback(null, {Item: {id: 1, message: "This is a message"}});
+    } else {
+      callback(null, {})
+    }
   });
 
-  it('implement tests here', () => {
+  it('should return correct message when message for the given ID exists', () => {
     return wrapped.run({pathParameters: {id: 1}}).then((response) => {
-      expect(response).to.not.be.empty;
+      const body = JSON.parse(response.body)
+      expect(body.message).to.equal("This is a message");
+    });
+  });
+
+  it('should return 404 and an empty body when message cannot be found', () => {
+    return wrapped.run({pathParameters: {id: 2}}).then((response) => {
+      expect(response.statusCode).to.equal(404)
+      expect(response.body).to.be.empty
     });
   });
 
