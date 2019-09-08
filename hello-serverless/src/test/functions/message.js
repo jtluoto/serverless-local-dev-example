@@ -1,19 +1,21 @@
 'use strict';
+
+const messageFunction = require('../../../src/functions/message.js');
 const mochaPlugin = require('serverless-mocha-plugin');
-const expect = mochaPlugin.chai.expect;
-let wrapped = mochaPlugin.getWrapper('message-get', '../../../src/functions/message.js', 'get');
 const AWS = require('aws-sdk-mock');
-const message = require('../../../src/functions/message.js');
-const AWS_SDK = message.getAWS();
+
+const lambdaWrapper = mochaPlugin.lambdaWrapper
+const expect = mochaPlugin.chai.expect;
+const wrapped = lambdaWrapper.wrap(messageFunction, { handler: 'get' })
+
+process.env.MESSAGE_TABLE_NAME = 'messages'
 
 describe('message-get', () => {
   before((done) => {
     done();
   });
 
-  process.env.MESSAGE_TABLE_NAME = 'messages'
-  AWS.setSDKInstance(AWS_SDK);
-  AWS.mock('DynamoDB', 'get', function (params, callback){
+  AWS.mock('DynamoDB.DocumentClient', 'get', function (params, callback) {
     callback(null, {Item: {id: 1, message: "This is the message"}});
   });
 
@@ -22,4 +24,6 @@ describe('message-get', () => {
       expect(response).to.not.be.empty;
     });
   });
+
+  AWS.restore('DynamoDB')
 });
