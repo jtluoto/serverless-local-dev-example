@@ -33,7 +33,7 @@ describe('message-get', () => {
   it('should return 404 and an empty body when message cannot be found', () => {
     return wrapped.run({pathParameters: {id: 2}}).then((response) => {
       expect(response.statusCode).to.equal(404)
-      expect(response.body).to.be.empty
+      expect(response.body).to.equal('Message with id 2 not found')
     });
   });
 

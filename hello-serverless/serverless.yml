@@ -26,13 +26,6 @@ plugins:
   - serverless-mocha-plugin
 
 functions:
-  foo:
-    handler: src/functions/foo.get
-    events:
-      - http:
-        path: message/{id}
-        method: get
-        cors: true
   message-get:
     handler: src/functions/message.get
     events:
