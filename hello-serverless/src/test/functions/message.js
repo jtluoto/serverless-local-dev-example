@@ -26,14 +26,14 @@ describe('message-get', () => {
   it('should return correct message when message for the given ID exists', () => {
     return wrapped.run({pathParameters: {id: 1}}).then((response) => {
       const body = JSON.parse(response.body)
+      expect(response.statusCode).to.equal(200)
       expect(body.message).to.equal("This is a message");
     });
   });
 
-  it('should return 404 and an empty body when message cannot be found', () => {
+  it('should return 404 when a message cannot be found', () => {
     return wrapped.run({pathParameters: {id: 2}}).then((response) => {
       expect(response.statusCode).to.equal(404)
-      expect(response.body).to.equal('Message with id 2 not found')
     });
   });
 
