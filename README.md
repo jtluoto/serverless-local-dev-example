@@ -1,23 +1,18 @@
 # Serverless local development example
 
-A small study on how to execute and test Lambda functions locally. I used:
+A small study on how to run and test Lambda functions and DynamoDB locally. I used:
 * Serverless framework to run and deploy the functions to AWS
 * Mocha for the test cases
-* serverless-mocha-plugin to create the test case skeleton
+* aws-sdk-mock to mock DynamoDB queries when running the unit tests
 * serverless-offline to emulate AWS Lambda and API Gateway on your local machine
 * serverless-dynamodb-local to run local DynamoDB in conjunction with serverless-offline
 * serverless-dynamodb-dlient to switch between local and online DynamoDB
-* aws-sdk-mock to mock DynamoDB queries when unit testing
+* serverless-mocha-plugin to create the test case skeleton
 
 First install Serverless framework and npm dependencies:
 ```
 npm install -g serverless
 npm -i
-```
-
-Mocha plugin can be used to create new functions and tests for them:
-```
-sls create function -f newFunction --handler src/functions/newFunction.get --path src/test/functions
 ```
 
 Run unit tests:
@@ -43,4 +38,9 @@ sls invoke -f message-get --data '{"pathParameters": {"id":"1"}}'
 Functions can also be run locally agains the DynamoDB table created into AWS:
 ```
 sls invoke local -f message-get --data '{"pathParameters": {"id":"1"}}'
+```
+
+Mocha plugin can be used to create new functions and tests for them:
+```
+sls create function -f newFunction --handler src/functions/newFunction.get --path src/test/functions
 ```
