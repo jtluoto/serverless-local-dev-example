@@ -6,7 +6,7 @@ A small project for trying out different ways to run and test Lambda functions a
 * aws-sdk-mock to mock DynamoDB queries when running the unit tests
 * serverless-offline to emulate AWS Lambda and API Gateway on your local machine
 * serverless-dynamodb-local to run local DynamoDB in conjunction with serverless-offline
-* serverless-dynamodb-dlient to switch between local and online DynamoDB
+* serverless-dynamodb-client to switch between local and online DynamoDB
 * serverless-mocha-plugin to create the test case skeleton
 
 First install Serverless framework and npm dependencies:
