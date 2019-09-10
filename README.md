@@ -4,7 +4,10 @@ A small study on how to execute and test Lambda functions locally. I used:
 * Serverless framework to run and deploy the functions to AWS
 * Mocha for the test cases
 * serverless-mocha-plugin to create the test case skeleton
-* aws-sdk-mock to mock DynamoDB queries
+* serverless-offline to emulate AWS Lambda and API Gateway on your local machine
+* serverless-dynamodb-local to run local DynamoDB in conjunction with serverless-offline
+* serverless-dynamodb-dlient to switch between local and online DynamoDB
+* aws-sdk-mock to mock DynamoDB queries when unit testing
 
 First install Serverless framework and npm dependencies:
 ```
@@ -22,30 +25,22 @@ Run unit tests:
 npm test
 ```
 
-Functions and the DynamoDB table defined in serverless.yml can be deployed to AWS (AWS profile called 'default' will be used):
+To start an HTTP server and a local in-memory DynamoDB instance that is seeded with the data defined in messages-seed.json, run the command below and browse to http://localhost:3000/message/1
+```
+sls offline start
+```
+
+Functions and the DynamoDB table defined in serverless.yml can also be deployed to AWS (AWS profile called 'default' will be used):
 ```
 sls deploy
 ```
 
-After the DynamoDB table has been created, the functions can be run locally against it:
-```
-sls invoke local -f message-get --data '{"pathParameters": {"id":"1"}}'
-```
-
-The functions deployed to AWS can also be called from the command line:
+Invoke the deployed function (note: the DynamoDB table created in AWS is empty at this point):
 ```
 sls invoke -f message-get --data '{"pathParameters": {"id":"1"}}'
 ```
 
-Start local DynamoDB instance:
+Functions can also be run locally agains the DynamoDB table created into AWS:
 ```
-sls dynamodb start
+sls invoke local -f message-get --data '{"pathParameters": {"id":"1"}}'
 ```
-
-Start HTTP server to access the REST APIs on localhost:3000:
-```
-sls offline
-```
-TODO:
-- Unit tests don't work with this setup
-- For some reason local dynamodb isn't used when invoking functions locally using sls or browser

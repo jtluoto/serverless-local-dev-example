@@ -58,6 +58,7 @@ custom:
     stages:
       - dev
     start:
+      port: 8000
       migrate: true
       seed: true
     seed:

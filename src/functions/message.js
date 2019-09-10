@@ -1,8 +1,5 @@
 'use strict';
 
-// const AWS = require('aws-sdk')
-const dynamodb = require('serverless-dynamodb-client');
-
 module.exports.get = async (event) => {
   var id = event.pathParameters.id
 
@@ -14,7 +11,9 @@ module.exports.get = async (event) => {
     }
   }
 
-  const docClient = dynamodb.doc // new AWS.DynamoDB.DocumentClient()
+  const dynamodb = require('serverless-dynamodb-client');
+  const docClient =  dynamodb.doc
+
   const promise = docClient.get(params).promise();
   const result = await promise;
 
