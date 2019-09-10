@@ -10,10 +10,12 @@
   "license": "ISC",
   "devDependencies": {
     "aws-sdk-mock": "^4.4.0",
-    "serverless-mocha-plugin": "^1.11.0"
+    "serverless-mocha-plugin": "^1.11.0",
+    "serverless-offline": "^6.0.0-alpha.38",
+    "serverless-dynamodb-client": "0.0.2",
+    "serverless-dynamodb-local": "^0.2.38"
   },
   "dependencies": {
-    "aws-sdk": "^2.462.0",
-    "serverless-dynamodb-local": "^0.2.38"
+    "aws-sdk": "^2.462.0"
   }
 }

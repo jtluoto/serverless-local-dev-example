@@ -37,4 +37,15 @@ The functions deployed to AWS can also be called from the command line:
 sls invoke -f message-get --data '{"pathParameters": {"id":"1"}}'
 ```
 
-ToDo: add local DynamoDB, add S3 and other mocks.
+Start local DynamoDB instance:
+```
+sls dynamodb start
+```
+
+Start HTTP server to access the REST APIs on localhost:3000:
+```
+sls offline
+```
+TODO:
+- Unit tests don't work with this setup
+- For some reason local dynamodb isn't used when invoking functions locally using sls or browser

@@ -1,4 +1,4 @@
-service: hello-serverless
+service: serverless-local-dev-example
 
 provider:
   name: aws
@@ -24,6 +24,8 @@ provider:
 
 plugins:
   - serverless-mocha-plugin
+  - serverless-dynamodb-local
+  - serverless-offline
 
 functions:
   message-get:
@@ -50,3 +52,16 @@ resources:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
         TableName: ${self:provider.environment.MESSAGE_TABLE_NAME}
+
+custom:
+  dynamodb:
+    stages:
+      - dev
+    start:
+      migrate: true
+      seed: true
+    seed:
+      default:
+        sources:
+          - table: ${self:provider.environment.MESSAGE_TABLE_NAME}
+            sources: [./messages-seed.json]
