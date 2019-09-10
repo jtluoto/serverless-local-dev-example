@@ -1,18 +1,19 @@
 {
-  "name": "hello-serverless",
+  "name": "serverless-local-dev-example",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Project for trying out local serverless development tools",
+  "repository": "github:jtluoto/serverless-local-dev-example",
   "scripts": {
     "test": "mocha src/test/functions"
   },
-  "author": "",
+  "author": "Juha Luoto",
   "license": "ISC",
   "devDependencies": {
     "aws-sdk-mock": "^4.4.0",
     "serverless-mocha-plugin": "^1.11.0"
   },
   "dependencies": {
-    "aws-sdk": "^2.462.0"
+    "aws-sdk": "^2.462.0",
+    "serverless-dynamodb-local": "^0.2.38"
   }
 }
