@@ -1,6 +1,6 @@
 # Serverless local development example
 
-A small study on how to run and test Lambda functions and DynamoDB locally. I used:
+A small project for trying out different ways to run and test Lambda functions and DynamoDB locally. I used:
 * Serverless framework to run and deploy the functions to AWS
 * Mocha for the test cases
 * aws-sdk-mock to mock DynamoDB queries when running the unit tests
