@@ -20,7 +20,9 @@ module.exports.get = async (event) => {
   if (result.Item) {
     return sendResponse(200, JSON.stringify(result.Item));
   } else {
-    return sendResponse(404, `Message with id ${id} not found`)
+    return sendResponse(404, JSON.stringify({
+      error: `Message corresponding to id ${id} not found`
+    }))
   }
 };
 
