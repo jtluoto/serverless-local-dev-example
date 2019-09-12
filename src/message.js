@@ -1,5 +1,8 @@
 'use strict';
 
+const AWS = require('aws-sdk')
+const ddbOpts = require('./aws-options').dynamodbOptions
+
 module.exports.get = async (event) => {
   var id = event.pathParameters.id
 
@@ -11,9 +14,7 @@ module.exports.get = async (event) => {
     }
   }
 
-  const dynamodb = require('serverless-dynamodb-client');
-  const docClient =  dynamodb.doc
-
+  const docClient = new AWS.DynamoDB.DocumentClient(ddbOpts());
   const promise = docClient.get(params).promise();
   const result = await promise;
 
@@ -31,7 +32,6 @@ const sendResponse = (status, body) => {
     statusCode: status,
     headers: {
       "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
     },
     body: body
   };

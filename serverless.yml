@@ -23,13 +23,12 @@ provider:
       Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.MESSAGE_TABLE_NAME}"
 
 plugins:
-  - serverless-mocha-plugin
   - serverless-dynamodb-local
   - serverless-offline
 
 functions:
   message-get:
-    handler: src/functions/message.get
+    handler: src/message.get
     events:
       - http:
           path: message/{id}
