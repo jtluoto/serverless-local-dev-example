@@ -6,7 +6,7 @@ A small project for trying out different ways to run and test Lambda functions a
 * serverless-offline to emulate AWS Lambda and API Gateway on your local machine
 * serverless-dynamodb-local to run a local DynamoDB in conjunction with serverless-offline
 
-To support using local DynamoDB instance when running the Lambda functions locally using serverless-offline but using the AWS DynamoDB when running the functions deployed to AWS, there's a small function in aws-options.js that returns correct DocumentClient settings depending on where the function is being run.
+To support using the local DynamoDB instance when running serverless-offline but using the AWS DynamoDB when running the functions deployed to AWS, there's a small function in aws-options.js that returns correct DocumentClient settings depending on where the function is being run.
 
 ## How to run
 First install Serverless framework and npm dependencies:
