@@ -1,7 +1,7 @@
 {
   "name": "serverless-local-dev-example",
   "version": "1.0.0",
-  "description": "Project for trying out local serverless development tools",
+  "description": "A small project for trying out local serverless development tools",
   "repository": "github:jtluoto/serverless-local-dev-example",
   "scripts": {
     "test": "mocha --recursive"

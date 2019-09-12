@@ -15,7 +15,7 @@ npm install -g serverless
 npm i
 ```
 
-Run unit tests:
+Run the unit tests:
 ```
 npm test
 ```
