@@ -12,7 +12,7 @@ To support using local DynamoDB instance when running the Lambda functions local
 First install Serverless framework and npm dependencies:
 ```
 npm install -g serverless
-npm -i
+npm i
 ```
 
 Run unit tests:
@@ -20,15 +20,20 @@ Run unit tests:
 npm test
 ```
 
-To start an HTTP server and a local in-memory DynamoDB instance that is seeded with the data defined in messages-seed.json, run the commands below and browse to http://localhost:3000/message/1
+The following commands will start an HTTP server that emulates AWS API gateway, a local in-memory DynamoDB instance and will seed the database with the data defined in messages-seed.json. After running the commands browse to http://localhost:3000/message/1
 ```
 sls dynamodb install
 sls offline start
 ```
 
-Functions can also be run locally agains the DynamoDB table created into AWS:
+Functions can also be run locally against the DynamoDB table created into AWS:
 ```
 sls invoke local -f message-get --data '{"pathParameters": {"id":"1"}}'
+```
+
+The command above should not be able to find a message because at this point the DynamoDB table on AWS is empty. To seed the online database run the following command:
+```
+sls dynamodb seed --online --region=us-east-1
 ```
 
 Functions and the DynamoDB table defined in serverless.yml can also be deployed to AWS (AWS profile called 'default' will be used):
@@ -36,7 +41,7 @@ Functions and the DynamoDB table defined in serverless.yml can also be deployed 
 sls deploy
 ```
 
-Invoke the deployed function (note: the DynamoDB table created in AWS is empty at this point):
+The deployed function can now be invoked:
 ```
 sls invoke -f message-get --data '{"pathParameters": {"id":"1"}}'
 ```
