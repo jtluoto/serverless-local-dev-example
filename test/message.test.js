@@ -1,18 +1,23 @@
 'use strict';
 
 const message = require('../src/message.js');
-const AWS = require('aws-sdk-mock');
+const AWSMock = require('aws-sdk-mock');
 const should = require('chai').should()
-
 process.env.MESSAGE_TABLE_NAME = 'messages'
 
 describe('message-get', () => {
-  AWS.mock('DynamoDB.DocumentClient', 'get', function (params, callback) {
-    if (params.Key.id == 1) {
-      callback(null, {Item: {id: 1, message: "This is a message"}});
-    } else {
-      callback(null, {})
-    }
+  before(function() {
+    AWSMock.mock('DynamoDB.DocumentClient', 'get', function (params, callback) {
+      if (params.Key.id == 1) {
+        callback(null, {Item: {id: 1, message: "This is a message"}});
+      } else {
+        callback(null, {})
+      }
+    });
+  });
+
+  after(function() {
+    AWSMock.restore("DynamoDB.DocumentClient");
   });
 
   it('should return correct message when message for the given ID exists', () => {
@@ -28,6 +33,4 @@ describe('message-get', () => {
       response.statusCode.should.equal(404)
     });
   });
-
-  AWS.restore('DynamoDB')
 });
